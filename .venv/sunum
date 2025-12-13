@@ -1,0 +1,26 @@
+1. Veri Yapısı ve Sözlükler (Dictionaries):
+
+Burada bir Knowledge Base (Bilgi Tabanı) oluşturdum. Oyunun terminolojisini (Tank, Assassin, Hypercarry) kodun anlayabileceği kategorilere ayırdım.
+Böylece kullanıcı 'Agresif' dediğinde kod hangi oyuncuların agresif olduğunu bu sözlükten anlıyor."
+
+2. Veri Temizleme (Data Cleaning):
+
+(Class Oyuncu kısmını gösterirken) Ham veride bazen ADC rolü için 'Assassin' etiketi gelebiliyordu.
+Bu kavramsal karmaşayı önlemek için nesne oluşturulurken otomatik String Replacement yapıp terminolojiyi düzelttim.
+
+3. Karar Algoritması (The AI Logic):
+
+(TransferYapayZekasi sınıfını gösterirken) "Burada Greedy
+(Açgözlü) Arama Algoritması kullandım. Algoritma her adımda bütçesine en uygun en yüksek puanlı oyuncuyu arıyor. Ancak..."
+
+Önemli Nokta: "Burada bir Heuristic (Sezgisel) yaklaşım ekledim. Eğer takımın sonlarına geldik ve hala Tank yoksa, algoritma stratejiyi boşverip
+Tank oyunculara +500 Puan Bonusu (Weighting) vererek seçimi manipüle ediyor. Buna 'Constraint Satisfaction' (Kısıt Sağlama) diyebiliriz."
+
+4. Bütçe Yönetimi:
+
+"Sistemin en başında parasını bitirip takımı eksik bırakmaması için Dinamik Rezerv hesabı yaptım. Kalan her pozisyon için en ucuz oyuncu kadar parayı kenara ayırıyor."
+
+5. Simülasyon (Sinerji Hesabı):
+
+(StratejikMacMotoru kısmını gösterirken) "Maç sonucunu sadece puan toplamı belirlemiyor.
+Takımda Tank var mı? Hem Büyü hem Fiziksel hasar var mı? Bu faktörlere göre takıma +250 / -300 gibi sinerji puanları ekleyip çıkartıyorum."

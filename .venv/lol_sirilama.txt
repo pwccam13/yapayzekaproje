@@ -1,0 +1,502 @@
+Sıra  | Oyuncu Adı                     | LP     | Main Şampiyon
+---------------------------------------------------------------------------
+1     | Avalanche#TRdog                | 2136   | Lux
+2     | marjua#merx                    | 2121   | Hecarim
+3     | mxch1n3#1790                   | 1866   | Janna
+4     | Ucka#God                       | 1797   | Zeri
+5     | Leansy#TR2                     | 1622   | Ezreal
+6     | Diluc#モラン                      | 1620   | Fiora
+7     | Clavar la Espada#5151          | 1608   | Darius
+8     | sharingan eyez#333             | 1580   | Kai'Sa
+9     | ColdPalmer#TR2                 | 1570   | Draven
+10    | ladriv#001                     | 1565   | Camille
+11    | selfmade#531                   | 1539   | Graves
+12    | forty seven#47X                | 1403   | Akali
+13    | Wistaria#1107                  | 1401   | Fiora
+14    | mxcxhxx#xxx                    | 1388   | Talon
+15    | ash#lost                       | 1387   | Nidalee
+16    | 괴수 8호#0930                     | 1371   | Fizz
+17    | Memories#TOKİO                 | 1368   | Qiyana
+18    | luciddrxam#xxxx                | 1325   | Talon
+19    | Deniz#2025                     | 1281   | Lucian
+20    | mpd n xtc#422mg                | 1276   | Fiora
+21    | adeline#789                    | 1239   | Nami
+22    | Puca#ali                       | 1237   | Hecarim
+23    | Jaquen#TR2                     | 1217   | Kassadin
+24    | Reaix#00011                    | 1209   | Sylas
+25    | Pavard#666                     | 1207   | Kennen
+26    | ClutchNツ#0000                  | 1207   | Zoe
+27    | HIGAN 此岸#答えは沈黙                 | 1202   | Bard
+28    | Humble Zeref#1007              | 1200   | Ekko
+29    | Alex Mercer#1v9                | 1179   | Talon
+30    | Yavuzmacun#2412                | 1149   | Graves
+31    | Violent#733                    | 1139   | Akshan
+32    | SONMENZİL#TR1                  | 1120   | Jhin
+33    | Runa#emo                       | 1108   | Lux
+34    | ZOR YARIŞIRLAR#1818            | 1106   | Jinx
+35    | Yui#S0RA                       | 1101   | Vayne
+36    | kanami#dream                   | 1096   | Lux
+37    | Vecta#0001                     | 1088   | Katarina
+38    | bok tv mensubu#messi           | 1083   | Yasuo
+39    | kia sama#0843                  | 1068   | Lucian
+40    | Eloha#111                      | 1054   | Tristana
+41    | dueno#sxru                     | 1044   | Diana
+42    | Arvem#2407                     | 1034   | Lux
+43    | Apolyo#3672                    | 1033   | Ahri
+44    | gitme bebe#777                 | 1033   | Bard
+45    | Kira#sss1                      | 1030   | Viego
+46    | KOKO#DEG                       | 1028   | Mordekaiser
+47    | InsertIn#TR1                   | 1022   | Ezreal
+48    | carnyx#4444                    | 1021   | Jhin
+49    | Lotus#Nera                     | 1017   | LeBlanc
+50    | Old Faker#9102                 | 1016   | Vel'Koz
+51    | Uyuttuğum adama#VURMA          | 1016   | Zoe
+52    | Solarcix#REAL                  | 1015   | Lee Sin
+53    | gerizekali mal#hzrn            | 1015   | Qiyana
+54    | Diass#Aks                      | 1011   | Trundle
+55    | yy mb we 15#dlra               | 1010   | Viego
+56    | mein kmpf#888                  | 1006   | Akali
+57    | itsdripbaby#111                | 1003   | Draven
+58    | Muteki#fool                    | 997    | Veigar
+59    | kaka kafa calimi#meto          | 996    | Twitch
+60    | Rakan God#Rakan                | 991    | Rakan
+61    | why u mad#god                  | 990    | Master Yi
+62    | Coverit#TOXIC                  | 984    | Karthus
+63    | HÖÖÖÖÖÖÖÖÖÖÖÖ#Swain            | 973    | Swain
+64    | Sw4q#1734                      | 959    | Caitlyn
+65    | TEHLİKELİ KEDİ#Yavuz           | 955    | Caitlyn
+66    | ŞAMPİYONLUK 1 #TR1             | 951    | Poppy
+67    | joji#XDD                       | 946    | Lulu
+68    | Dark Magician#19035            | 946    | LeBlanc
+69    | dc gg pepeler#36963            | 945    | Yasuo
+70    | SA BEN DOPA#21gr               | 942    | Vayne
+71    | woo walk#igris                 | 941    | Riven
+72    | Beni Şaşırttın#ˉˉˉ             | 939    | Soraka
+73    | Sunless#暗い空                    | 936    | Vladimir
+74    | Swiislor#6292                  | 935    | Akshan
+75    | DİØ BRANDØ#TR1                 | 935    | Kai'Sa
+76    | kick tireurennu#13xu           | 930    | Zed
+77    | Lxnt#Bruh                      | 930    | Fiddlesticks
+78    | gadas#TR1                      | 918    | Camille
+79    | Drew#EUW2                      | 917    | Sylas
+80    | Catriona#diva                  | 916    | Seraphine
+81    | LOBBY ADMIN#XYZ                | 916    | Talon
+82    | Aelisia#7777                   | 912    | Vayne
+83    | Cıva#LoL                       | 911    | Mordekaiser
+84    | CT Siparus TNT#TR1             | 909    | Draven
+85    | Twtv PyrisTTT#123              | 908    | Yasuo
+86    | suki#ad237                     | 907    | Lucian
+87    | zorbadırgüzellik#11111         | 905    | Lee Sin
+88    | THOMY#BIG                      | 901    | Diana
+89    | Clay#Peony                     | 901    | Fiora
+90    | Kings Never Die#769            | 899    | Vex
+91    | k mid1#1111                    | 891    | LeBlanc
+92    | loath veiled ire#111           | 891    | Katarina
+93    | lame en peine#0000             | 888    | Varus
+94    | kucuk kiz#ppi                  | 887    | Janna
+95    | yunik#00001                    | 885    | Aatrox
+96    | Spot#TR1                       | 883    | Yone
+97    | Luante#0000                    | 883    | Kennen
+98    | Vlessok#TR1                    | 880    | Twitch
+99    | Thank you next#TR1             | 879    | Qiyana
+100   | Goddess Wind#CAT               | 878    | Yasuo
+101   | Snophén#Nami                   | 877    | Nami
+102   | ÇAPINIZ YETMEZ#7777            | 877    | Lucian
+103   | El Amarna#TR01                 | 876    | Soraka
+104   | wka#888ii                      | 875    | Katarina
+105   | Parlak Pasif#LGBT              | 872    | Janna
+106   | FKKemikKıranFK#FKLLR           | 869    | Sylas
+107   | Miyuk#RAMO                     | 867    | Bel'Veth
+108   | nightcore#clshr                | 867    | Naafiri
+109   | Ata#369                        | 865    | Taliyah
+110   | Ygtrêce#TR1                    | 865    | Gragas
+111   | your goth soraka#sup           | 865    | Soraka
+112   | Helvete#6ix                    | 864    | Draven
+113   | daewi#nox                      | 864    | Katarina
+114   | Akûma Undomîell#QeQ            | 864    | Katarina
+115   | zvxdcvbf#y5dgs                 | 862    | Talon
+116   | Naofumi lwatani#TR1            | 861    | Leona
+117   | Kisuke#1v9Qi                   | 855    | Qiyana
+118   | очень темно#черны              | 855    | Zed
+119   | Kick Qorath#40312              | 851    | Rengar
+120   | a waltz for you#ˇˆˇ            | 849    | Tristana
+121   | sakasiz#saka                   | 848    | Irelia
+122   | maskelibalo1156#9797           | 847    | Viego
+123   | kerimflex#000                  | 847    | Talon
+124   | Maple#JQKA                     | 847    | Rengar
+125   | mamisavage#xxxxx               | 847    | Sylas
+126   | emolaf#111                     | 845    | Qiyana
+127   | Sangre#Aeon                    | 845    | Vayne
+128   | aizel#999WN                    | 845    | Draven
+129   | foe#foe1                       | 843    | Draven
+130   | Foreflay#9999                  | 843    | Thresh
+131   | Siravia#diva                   | 843    | Vayne
+132   | BeNTeK#YaTo                    | 836    | Sion
+133   | Şeftali#プディング                  | 835    | Lulu
+134   | i hate what i am#bloxa         | 834    | Hecarim
+135   | qanaryq#TR1                    | 833    | Thresh
+136   | Uira#222                       | 832    | Ahri
+137   | Musthic#AKU                    | 830    | Ziggs
+138   | JerryRaynor#3536               | 828    | Kayn
+139   | KING#CRUEL                     | 828    | Diana
+140   | renias#TR1                     | 825    | Jhin
+141   | SOL BNB ADA BTC#rich           | 825    | Jarvan IV
+142   | breakcore#clshr                | 825    | Naafiri
+143   | yuıoy#TR1                      | 820    | Xerath
+144   | CİHAT SARSILMAZ#11111          | 819    | Viego
+145   | Loki#0651                      | 819    | Darius
+146   | Kaharu#TR1                     | 817    | Kayn
+147   | on my own#1111                 | 816    | Kai'Sa
+148   | Kuddusi Baba#GAİLE             | 815    | Bard
+149   | Sıeáth#TR1                     | 814    | Yasuo
+150   | inside my heart#66666          | 814    | Qiyana
+151   | Lady Arwen#Solvi               | 813    | Anivia
+152   | Otenazy#TR068                  | 813    | Xerath
+153   | Rüzgar#rüz                     | 813    | Yasuo
+154   | PAIN TOLERANCE#1905            | 812    | Kai'Sa
+155   | Sypnax#999                     | 811    | LeBlanc
+156   | nerdaliisback#9108             | 810    | Lee Sin
+157   | bluest flame#1204              | 810    | Lux
+158   | Idk Complicated#jihun          | 809    | Aphelios
+159   | ÇiftçiBob#lol                  | 806    | Brand
+160   | Ohnakinong#TR1                 | 805    | Riven
+161   | smolpaweum#smlpw               | 804    | Vi
+162   | Jaime Lannister#NOBLE          | 803    | Viego
+163   | tears#369                      | 803    | Qiyana
+164   | Necrotyle#necro                | 803    | Illaoi
+165   | deathcade#333                  | 802    | Tristana
+166   | Atode#lord                     | 800    | Riven
+167   | Hustrucha#001                  | 798    | Vayne
+168   | antichrist#733                 | 798    | Bel'Veth
+169   | dc gg rlp#Li123                | 797    | Talon
+170   | Shape#epahs                    | 797    | Mordekaiser
+171   | Bukroshee#神です                  | 795    | Soraka
+172   | Yuisha#0229                    | 794    | Nami
+173   | Mirzâ#Siel                     | 794    | Jhin
+174   | ryangosling#night              | 793    | Ezreal
+175   | hll#TR1                        | 792    | Orianna
+176   | Madé#drkn                      | 791    | Janna
+177   | Medwin#384                     | 791    | Kalista
+178   | OGC Gloryiuz#3131              | 791    | Blitzcrank
+179   | LXSING DREAMS#19323            | 789    | Master Yi
+180   | Fifth Evangelist#JSB           | 789    | Miss Fortune
+181   | kaneki#wh1te                   | 788    | Yasuo
+182   | Kâim Bey#TR1                   | 788    | Anivia
+183   | DH Duellant#TR1                | 787    | Renekton
+184   | pablosky#qss                   | 787    | Karthus
+185   | ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ#888           | 787    | Ambessa
+186   | ata jungle#nvl                 | 786    | Talon
+187   | Rushh#TR1                      | 786    | Vayne
+188   | paranoya#1006                  | 786    | Qiyana
+189   | cain#1912                      | 786    | Zed
+190   | JimiDede#TR1                   | 785    | Jayce
+191   | okkDislslt#123                 | 784    | Qiyana
+192   | god bless u#pump               | 782    | Riven
+193   | Kind#HB1                       | 782    | Ekko
+194   | zwenix즈웨#sae                   | 781    | Kai'Sa
+195   | sonsahabe3169#teala            | 781    | Udyr
+196   | Lexter#0001                    | 780    | Thresh
+197   | Lion Media#88888               | 779    | Sylas
+198   | NAMAZ KIL #TR1                 | 778    | Lee Sin
+199   | uzak dur#lllll                 | 777    | Vayne
+200   | Qyzo#MICO                      | 770    | Kai'Sa
+201   | Ridd#B11F                      | 767    | Jinx
+202   | Equinox#Asol                   | 765    | Aurelion Sol
+203   | Kinetsu#Sooth                  | 764    | Riven
+204   | edru#soe                       | 763    | Vladimir
+205   | call me boss#TBMM              | 763    | Tryndamere
+206   | good for you#404               | 762    | Yuumi
+207   | Sakin#WOW                      | 760    | Kassadin
+208   | çökelek holding#xDDDD          | 758    | Zed
+209   | wrath#303                      | 757    | Mordekaiser
+210   | issey miyake#3446              | 756    | Lucian
+211   | Moon#711                       | 756    | Syndra
+212   | Jardel#1283                    | 753    | Vladimir
+213   | KZN Miraj#Birci                | 753    | Ornn
+214   | Beloved Husky#TR1              | 750    | Gwen
+215   | Dragut#p4u                     | 744    | Hwei
+216   | SenTELLo Şamil#TR1             | 744    | Zac
+217   | Dr Sabine#TR1                  | 738    | Vayne
+218   | The Rheronis#TR1               | 735    | Shen
+219   | Despair#1881                   | 733    | Diana
+220   | Reqsa#Rank1                    | 731    | Kayn
+221   | Whip#111                       | 725    | Evelynn
+222   | Odoridase#123                  | 721    | Yasuo
+223   | Majo莲花#血雨探花                    | 721    | Rumble
+224   | Neo irfunny baby#TR3           | 719    | Taliyah
+225   | IXIecutioner#Emre              | 717    | Ekko
+226   | Sunny IV#TR1                   | 715    | Zoe
+227   | ZAFER TÜRİZM#Hsthg             | 715    | Diana
+228   | surf#3290                      | 714    | Tryndamere
+229   | angelic#lure                   | 712    | Lux
+230   | sunhaki#274x                   | 712    | Vladimir
+231   | 自分を憎む#999                      | 708    | Yasuo
+232   | İçinde Gezdiren#YUMOŞ          | 707    | Yuumi
+233   | BestrafeMich#Recht             | 706    | Jinx
+234   | debronee#888                   | 704    | Katarina
+235   | Calámity#asf                   | 704    | Zed
+236   | kid a mnesia#null              | 703    | Ahri
+237   | Ryu#もう一つ                       | 702    | Fiora
+238   | Lynn#7770                      | 697    | Viego
+239   | hilal yelekci#9595             | 692    | Camille
+240   | Scorth#2906                    | 691    | Kai'Sa
+241   | KAJUN LORDU#CAJUN              | 690    | Rek'Sai
+242   | MF ÁweShøck#sage               | 689    | Miss Fortune
+243   | Emilia LeBlanc#argnt           | 683    | LeBlanc
+244   | SuspectB#3162                  | 682    | Blitzcrank
+245   | old but gold#007               | 680    | Caitlyn
+246   | Sakin Kal Arda#12345           | 678    | Syndra
+247   | AlwaysandForever#alwys         | 677    | Quinn
+248   | iLLeqaLFaTaL1Ty#TR1            | 677    | Zed
+249   | beauty in your#eyess           | 674    | Braum
+250   | VEST#vest7                     | 673    | Nocturne
+251   | 45 cm biceps#Lym               | 672    | Viego
+252   | Luxtly#Kaisa                   | 672    | Kai'Sa
+253   | valeria#baby                   | 669    | Lulu
+254   | levila#tr2                     | 666    | Sett
+255   | TrueAlpha Rengar#Alpha         | 664    | Rengar
+256   | Fasulyesineee#1507             | 664    | Yasuo
+257   | groza#221                      | 664    | Qiyana
+258   | Schurrle#CAMLC                 | 660    | Karma
+259   | tsuki akari#7778               | 658    | Syndra
+260   | Alwaysboredlol#TR1             | 657    | Samira
+261   | BİLLURLU OYUNCU#TR1            | 657    | Nami
+262   | Katatonia#555                  | 656    | Aphelios
+263   | Maggie Rhee#0602               | 655    | Lux
+264   | yoruldum#4080                  | 654    | Sylas
+265   | LEZBİYEN MURAT#TR1             | 651    | Hwei
+266   | lost you#ash                   | 651    | Yasuo
+267   | khaelth#ffs                    | 650    | Lulu
+268   | kirmizi recete#361             | 649    | Irelia
+269   | PSYCH0K1LL3R#333               | 648    | Xayah
+270   | ğğğğğğğğğğğğğğğğ#üüüüü         | 647    | Ezreal
+271   | kicktv lawilol#lwi             | 646    | Lee Sin
+272   | Beeevt#3131                    | 646    | Kled
+273   | KALOBITAR FUN R1#MADEN         | 645    | Garen
+274   | Exymian#TR1                    | 644    | Thresh
+275   | Herif#1100                     | 641    | Zed
+276   | ozzy#rog                       | 641    | Samira
+277   | Monerâ#Tr61                    | 640    | Thresh
+278   | Coursin#TR1                    | 640    | Pyke
+279   | Mahatma LeKLa#reng             | 639    | Rengar
+280   | değiştim#00000                 | 634    | Sylas
+281   | serikatil#ttt                  | 634    | Rakan
+282   | StaB#31sj                      | 634    | Kayle
+283   | PİDE#PİG                       | 632    | Renekton
+284   | 800kMidSallll#TR1              | 632    | Yasuo
+285   | Zeta#963                       | 632    | Nidalee
+286   | FL LookLikeGod#DOES            | 627    | Kha'Zix
+287   | Elandel#TR1                    | 626    | Graves
+288   | beztebya888#4545               | 621    | Galio
+289   | AmeIia#TR1                     | 621    | Shyvana
+290   | Xedz#TR1                       | 619    | Zed
+291   | SoothSayer35#EUW               | 618    | Riven
+292   | Pegassuss#TR1                  | 617    | Zed
+293   | darkse1d#00000                 | 616    | Akshan
+294   | Muhammekaiser#TR571            | 615    | Mordekaiser
+295   | Estorea#TR1                    | 614    | Lux
+296   | inco#exo                       | 614    | Ekko
+297   | GLOXINIA SAMA#242              | 614    | Jayce
+298   | The Salvatore#099              | 613    | Lucian
+299   | Lulugs#5601                    | 613    | Corki
+300   | dolleyicikıral2#s1k3r          | 612    | Janna
+301   | Muteki#RK7                     | 612    | Veigar
+302   | seco#1111                      | 611    | Jinx
+303   | 杀手1#coc                        | 610    | Talon
+304   | Conqueror#Roseツ                | 609    | Draven
+305   | arcarcarcarc#0808              | 609    | Hecarim
+306   | aden7#zxc                      | 607    | Kai'Sa
+307   | sun eater#TR2                  | 606    | Twitch
+308   | Risphaze#GOD                   | 605    | Hecarim
+309   | DOBRAFAZA#4666                 | 604    | Karthus
+310   | DΞSTΛN#TR35                    | 603    | Samira
+311   | Nomad#gdxer                    | 598    | Darius
+312   | uA VictorOsimhen#GS1           | 598    | Malphite
+313   | 六六六六六六六#kog                    | 598    | Kog'Maw
+314   | Kaann#3636                     | 597    | Anivia
+315   | MrNowan#BABY                   | 596    | Gnar
+316   | Turk1shStars#3060              | 595    | Yasuo
+317   | TARANTUNA#3169                 | 594    | Milio
+318   | emınem#3162                    | 594    | Taliyah
+319   | Eda Clawthorne#1104            | 592    | Lux
+320   | 195CM107KG21CM#TC1             | 589    | Rumble
+321   | 1LVLTOCHALLENGER#TR007         | 587    | Katarina
+322   | MuhakemeYeteneği#TR1           | 586    | Fizz
+323   | Godfrey#ŞAŞKN                  | 586    | Sett
+324   | Enama#Mad                      | 585    | Lucian
+325   | dqp#lol                        | 584    | Tryndamere
+326   | KGB M A R S#1453               | 583    | Zed
+327   | asdfqwrdsfgqwe#qweqw           | 583    | Qiyana
+328   | mirina#mel                     | 582    | Katarina
+329   | End Of Life EO#TR1             | 581    | Samira
+330   | Shinya#666                     | 578    | Janna
+331   | LonelyWolf123#TR1              | 577    | Talon
+332   | manifest1#999                  | 576    | Xayah
+333   | MertcanKeskin#TR1              | 575    | Aatrox
+334   | Yasena#TR1                     | 574    | Rakan
+335   | lil peep turkiye#622           | 574    | Janna
+336   | Pompacı Ediz#Ediz              | 573    | Nilah
+337   | Fhype#TR1                      | 571    | Yasuo
+338   | elonda dans#q77                | 570    | Samira
+339   | Nista#VFW                      | 568    | Kled
+340   | aspect#lowke                   | 568    | Talon
+341   | Floodchuk#Ryze                 | 567    | Ryze
+342   | Kengu#TR1                      | 566    | Vladimir
+343   | Gesshoku#tsukı                 | 565    | Yasuo
+344   | Rhioni1#TR1                    | 563    | Lucian
+345   | Carryrina#TR1                  | 563    | Katarina
+346   | twc smrfng1#twc                | 563    | Neeko
+347   | Afiel#TR1                      | 563    | Irelia
+348   | Bir Yıldız Kaisa#3131          | 560    | Kai'Sa
+349   | Onsra#0104                     | 560    | Zed
+350   | draconian#death                | 559    | Lux
+351   | Myst#TR2                       | 557    | LeBlanc
+352   | Cikey#TR1                      | 556    | Volibear
+353   | yolu yok#dxmn                  | 556    | Sylas
+354   | Starlight#EUWS                 | 555    | Volibear
+355   | nicole#十十十                     | 553    | Seraphine
+356   | casual#ties                    | 552    | Bel'Veth
+357   | Ðiø Ðella Førest#TR1           | 551    | Lillia
+358   | Eilish#Doll                    | 550    | Jhin
+359   | SARHOŞ OBEZ#2008               | 548    | Gragas
+360   | highasf#愛愛愛                    | 548    | Talon
+361   | Aqua#lumi                      | 546    | Lulu
+362   | Relax Darling#3344             | 546    | Katarina
+363   | Aphelios v2#Aphe               | 545    | Aphelios
+364   | Frieren#Staff                  | 543    | Diana
+365   | Stnbl#TR1                      | 542    | Yasuo
+366   | ŞAHBET#ŞAHBO                   | 542    | Vayne
+367   | creaox#acc1                    | 541    | Kai'Sa
+368   | Rillyeith#TR1                  | 538    | Sion
+369   | ZehriMar BIG#HYPE              | 538    | Zed
+370   | Istag#88888                    | 536    | Yasuo
+371   | yulina#808                     | 535    | Nami
+372   | Playboi Carti#yvI              | 534    | Kai'Sa
+373   | tune#roe                       | 533    | Lux
+374   | ANKA#boks                      | 532    | Gragas
+375   | Neo ZeTHRIV#TR1                | 532    | Gragas
+376   | Memur 1#GMO                    | 531    | Vayne
+377   | JadeRoc#KÜRDO                  | 529    | Thresh
+378   | GodLikeFriqher#grind           | 529    | Vladimir
+379   | hindsight#171                  | 528    | Zeri
+380   | Sick#911                       | 528    | Zed
+381   | Through Shadows#TR1            | 528    | Zed
+382   | Zetinac#000                    | 528    | Akali
+383   | sek1m#king                     | 527    | Lucian
+384   | Kim Chaewon#Kibir              | 525    | Aatrox
+385   | xxxva#1938                     | 524    | Kai'Sa
+386   | BakireGül#Nurdi                | 523    | Lux
+387   | Taso BABA#LMFAO                | 522    | Diana
+388   | Zyr Bahçeleri#TR1              | 522    | Rell
+389   | Kendıne Gwen#TR1               | 521    | Azir
+390   | DredRS#TR1                     | 520    | Katarina
+391   | Kounen#chaos                   | 518    | Kayn
+392   | katana#xxd                     | 515    | Yone
+393   | Shigaraki#MRT                  | 515    | Cassiopeia
+394   | Zievel#zort                    | 513    | Diana
+395   | Renegoush#TR1                  | 511    | Swain
+396   | hamburgersewerim#444           | 510    | Kha'Zix
+397   | DikDuranPisVuran#3733          | 508    | Camille
+398   | sonumu getir#212               | 508    | Jax
+399   | FreshKiller#GOD                | 507    | Caitlyn
+400   | THE MACHİNE#6886               | 507    | Evelynn
+401   | Rodblac#Ghost                  | 506    | Xerath
+402   | Solded#SLDED                   | 506    | Bel'Veth
+403   | Byleth#999                     | 505    | Tristana
+404   | Challenger Bot#TR2             | 505    | Vayne
+405   | devilish#1000                  | 503    | Zed
+406   | BabyClassQ#TR1                 | 503    | Samira
+407   | Slimeslimeoglu#TR31            | 502    | Garen
+408   | CHA OLUP SALICAM#Tedi          | 501    | Kayn
+409   | Fawklê#TR1                     | 501    | Zeri
+410   | i will cherish u#4GET十         | 500    | Qiyana
+411   | Khaslana#Kaos                  | 500    | Riven
+412   | KIKA#Now                       | 500    | Lux
+413   | mystique#xxxxx                 | 500    | Graves
+414   | young lust#666                 | 499    | Soraka
+415   | Şafi in İsrael#Şafi            | 499    | Vel'Koz
+416   | honor fizz#TR1                 | 499    | Fizz
+417   | eng50DOM6Ps2p60#engel          | 499    | Qiyana
+418   | ALPERN NAPIYOSON#ADC           | 496    | Kai'Sa
+419   | heeeey guuys#fbgn              | 494    | Katarina
+420   | Çekirdek#テオビ                   | 494    | Soraka
+421   | NICK WOLTEMADE#DRAKE           | 493    | Yasuo
+422   | Desir Hermann#4810             | 493    | Annie
+423   | EzVayneQQ#TR1                  | 492    | Fiora
+424   | ceku#baIim                     | 491    | Janna
+425   | Holløw#TR1                     | 491    | Nami
+426   | Boss429#006                    | 489    | Karma
+427   | let me handle#8390             | 488    | Thresh
+428   | Ballıca Teksas#15ff            | 488    | Gragas
+429   | sergio ramos#93RMA             | 487    | Yasuo
+430   | Rug Seller#TR1                 | 486    | Tahm Kench
+431   | MEĞZAME#TR1                    | 486    | Camille
+432   | FUСΚYOULIKEIСAN#asf            | 486    | Kindred
+433   | odium#numen                    | 485    | Soraka
+434   | Bahçevelli#1010                | 484    | Zoe
+435   | Seymix#993                     | 483    | Yasuo
+436   | IIIIIIllIIll#llIII             | 483    | Nasus
+437   | Eternal Wild#TR1               | 482    | Nasus
+438   | Ladyboy Ahmet#1903             | 482    | Karma
+439   | 탑 코리도 킹#1901                   | 480    | Vladimir
+440   | 09 01 2010#026                 | 480    | Master Yi
+441   | 6KaraKoyun#Koyun               | 480    | Katarina
+442   | pozitifim#0005                 | 480    | Bel'Veth
+443   | K1NG DOĞUKAN#TR1               | 479    | Kai'Sa
+444   | cube sheker#TR12               | 479    | Nidalee
+445   | Ekkota#mami                    | 478    | Ekko
+446   | D0KI#TR61                      | 478    | Riven
+447   | BAMBOLEO#TR31                  | 477    | Viktor
+448   | valentina#fae                  | 477    | Janna
+449   | mental breakdown#iron4         | 477    | Fiora
+450   | Bishu#TR1                      | 475    | Vladimir
+451   | Ettelly#TR1                    | 475    | Irelia
+452   | sophie germain#1111            | 474    | Janna
+453   | Bounifiort#TR1                 | 474    | Anivia
+454   | EX7#3783                       | 474    | Zed
+455   | ByPeJuRa#KGT                   | 473    | Kai'Sa
+456   | AGoNY#HLE                      | 472    | Rell
+457   | Chemistries#TR1                | 472    | Anivia
+458   | stfu and play#anann            | 472    | Katarina
+459   | DIZØKILL#TR1                   | 472    | Viego
+460   | dobro vecer#zephx              | 471    | Lulu
+461   | batu123#jgdif                  | 471    | Yasuo
+462   | DULTÜCCARI#NGC                 | 471    | Soraka
+463   | 081096251199#0802              | 471    | Yasuo
+464   | TARDE SETT TUTE#BOSS           | 470    | Sett
+465   | ELAK#XXXXX                     | 470    | Galio
+466   | ManyaqBoy#TR31                 | 470    | Yasuo
+467   | Öykie#Lady                     | 469    | Ahri
+468   | Dieruth#1907                   | 465    | Jinx
+469   | Bück Dîch#1310                 | 464    | Darius
+470   | NEEKO TANRISI#GOD              | 464    | Neeko
+471   | Area T Rex#0305                | 463    | Lux
+472   | Jackz#TR1                      | 463    | Gangplank
+473   | beypazari iceyim#neyse         | 463    | Thresh
+474   | C O N Q U E S T#1788           | 463    | Kha'Zix
+475   | öldühttp#kimya                 | 461    | Aurora
+476   | gemici#370                     | 461    | Taric
+477   | Tyurvalembas#3152              | 460    | Skarner
+478   | EDG wx 3334532#xxx             | 459    | Sylas
+479   | Shasho#4444                    | 459    | Jhin
+480   | Tekin#000                      | 459    | Xayah
+481   | ｙｏｒｉｃｈｉ#11111                  | 458    | Lulu
+482   | TWKING#619                     | 458    | Twitch
+483   | Lesi0n#TR1                     | 458    | Smolder
+484   | KeyBlade#KUN                   | 458    | Yasuo
+485   | lower your head#DDD            | 457    | Sylas
+486   | Canay#TR1                      | 455    | Urgot
+487   | Pain#Kayn                      | 454    | Kayn
+488   | olek#31sa                      | 453    | Jhin
+489   | ozzykaratren#1907              | 453    | Kalista
+490   | TÜRBANLI DAMITAN#3162          | 453    | Aphelios
+491   | Sativa#7080                    | 451    | Twitch
+492   | MRJack#388                     | 451    | Zed
+493   | Mâây#888ii                     | 449    | Lux
+494   | arzhel#green                   | 448    | Lux
+495   | deepinlovekathie#707           | 447    | Xin Zhao
+496   | Russell Adler#İblis            | 446    | Nocturne
+497   | Miyuna#sago                    | 446    | Kai'Sa
+498   | JackalShow#TR1                 | 445    | Vayne
+499   | Sihirdar Adım#TR2              | 444    | Fiora
+500   | Code Lyoko#2010                | 441    | Aurelion Sol

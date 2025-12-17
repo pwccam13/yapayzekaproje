@@ -18,7 +18,7 @@ except ImportError:
 # ==========================================
 
 # [DİKKAT]: Sunumdan hemen önce Key'i yenile!
-API_KEY = "RGAPI-39fcf712-1437-4982-91b0-814c61aa7a3e"
+API_KEY = "RGAPI-9b85a10e-27cb-4ed8-9bb8-873cc7257e4b"
 REGION_GAME = "tr1"
 REGION_ACCOUNT = "europe"
 

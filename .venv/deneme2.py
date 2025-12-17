@@ -1,8 +1,10 @@
 import time
 import os
 import random
+import sys
+import concurrent.futures  # [YENİ] Multithreading kütüphanesi
 
-# [SUNUM NOTU]: Kütüphane bağımlılıklarını yönetiyoruz (Graceful Degradation).
+# [SUNUM NOTU]: Kütüphane bağımlılıklarını yönetiyoruz.
 try:
     import requests
 
@@ -15,12 +17,12 @@ except ImportError:
 # KONFİGÜRASYON VE BİLGİ TABANI
 # ==========================================
 
-# [DİKKAT]: Sunumdan hemen önce https://developer.riotgames.com/ adresinden key alıp buraya yapıştır!
-API_KEY = "RGAPI-9b85a10e-27cb-4ed8-9bb8-872cc7257e4b"
+# [DİKKAT]: Sunumdan hemen önce Key'i yenile!
+API_KEY = "RGAPI-39fcf712-1437-4982-91b0-814c61aa7a3e"
 REGION_GAME = "tr1"
 REGION_ACCOUNT = "europe"
 
-# 1. DETAYLI TERMİNOLOJİ SÖZLÜĞÜ (Knowledge Base)
+# 1. DETAYLI TERMİNOLOJİ SÖZLÜĞÜ
 GENEL_SINIFLAR = {
     "Tank & Ön Saf": ["Tank", "Warden", "Main: Ornn", "Main: Shen", "Main: Malphite", "Main: Sion", "Main: K'Sante"],
     "Ağır Dövüşçü (Juggernaut)": ["Juggernaut", "Darius", "Garen", "Sett", "Mordekaiser", "Urgot", "Illaoi",
@@ -227,7 +229,7 @@ class StratejikMacMotoru:
 
 
 # ==========================================
-# 3. KARAR ALGORİTMASI (AI)
+# 3. KARAR ALGORİTMASI (AI - AKILLI BÜTÇE)
 # ==========================================
 
 class TransferYapayZekasi:
@@ -237,6 +239,7 @@ class TransferYapayZekasi:
     def en_iyi_takimi_kur(self, butce, strateji):
         kurulan_takim = Takim()
         roller = ["Ust Koridor", "Orman", "Orta Koridor", "Nisanci (ADC)", "Destek"]
+
         try:
             min_maas = min([oy.maas for oy in self.havuz])
         except:
@@ -251,32 +254,44 @@ class TransferYapayZekasi:
             bonus_kelimeler = ["Control", "Tank", "Engage", "Utility", "Skirmisher"]
 
         takimda_tank_var = False
+
+        # [ALGORİTMA NOTU]: Lookahead Optimization (İleriye Bakışlı Optimizasyon)
         for i, rol in enumerate(roller):
             adaylar = [o for o in self.havuz if o.rol == rol]
             en_iyi_aday = None
             en_yuksek_skor = -99999
+
+            # Dinamik Rezerv: Kalan roller için minimum parayı ayırıyoruz.
             kalan_rol_sayisi = 4 - i
-            zorunlu_rezerv = kalan_rol_sayisi * min_maas
+            rezerv_butce = kalan_rol_sayisi * min_maas
+            harcanabilir_limit = butce - kurulan_takim.toplam_maas - rezerv_butce
+
             tank_lazim = False
             if not takimda_tank_var and rol in ["Ust Koridor", "Orman", "Destek"]:
                 tank_lazim = True
+
             for aday in adaylar:
+                if aday.maas > harcanabilir_limit: continue  # Bütçe Koruma
+
                 skor = aday.puan
                 for ozellik in aday.ozellikler:
                     for bonus in bonus_kelimeler:
                         if bonus in ozellik:
                             skor += (aday.puan * 0.1)
                             break
+
                 is_tank = any(x in aday.ozellik_str for x in ["Tank", "Juggernaut", "Engage", "Warden"])
                 if tank_lazim and is_tank: skor += 500
-                if (kurulan_takim.toplam_maas + aday.maas + zorunlu_rezerv) <= butce:
-                    if skor > en_yuksek_skor:
-                        en_yuksek_skor = skor
-                        en_iyi_aday = aday
+
+                if skor > en_yuksek_skor:
+                    en_yuksek_skor = skor
+                    en_iyi_aday = aday
+
             if en_iyi_aday:
                 kurulan_takim.oyuncu_ekle(en_iyi_aday)
                 if any(x in en_iyi_aday.ozellik_str for x in ["Tank", "Juggernaut", "Engage", "Warden"]):
                     takimda_tank_var = True
+
         return kurulan_takim
 
     def takimi_analiz_et(self, takim):
@@ -296,7 +311,7 @@ class TransferYapayZekasi:
 
 
 # ==========================================
-# 4. VERI YÖNETİMİ
+# 4. VERI YÖNETİMİ (MULTITHREADING & POOLING)
 # ==========================================
 
 def txt_oku():
@@ -334,63 +349,93 @@ def sampiyon_verisi_getir():
         return {}
 
 
+# [TEKNİK DETAY]: Bu fonksiyon "Thread" içinde çalışacak.
+# Session nesnesi parametre olarak alınır (Connection Pooling).
+def tekil_oyuncu_analiz(entry, session, headers, champ_data, yedek_roller):
+    lp = entry['leaguePoints']
+    puuid = entry.get('puuid')
+    ad = f"Player_Unknown"
+    rol = random.choice(yedek_roller)
+    ozellik = "Dengeli"
+
+    try:
+        # 1. Hesap Bilgisi
+        acc_resp = session.get(f"https://{REGION_ACCOUNT}.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}",
+                               headers=headers)
+        if acc_resp.status_code == 200:
+            d = acc_resp.json();
+            ad = f"{d['gameName']}#{d['tagLine']}"
+
+        # 2. Şampiyon Ustalığı
+        mast_resp = session.get(
+            f"https://{REGION_GAME}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
+            headers=headers)
+        if mast_resp.status_code == 200:
+            m = mast_resp.json()
+            if m:
+                cid = m[0]['championId']
+                if cid in champ_data:
+                    c_name, c_tags = champ_data[cid]
+                    ozellik = " / ".join(c_tags)
+                    if "Support" in c_tags:
+                        rol = "Destek"
+                    elif "Marksman" in c_tags:
+                        rol = "Nisanci (ADC)"
+                    elif "Mage" in c_tags:
+                        rol = "Orta Koridor"
+                    elif "Tank" in c_tags:
+                        rol = "Ust Koridor"
+                    elif "Assassin" in c_tags:
+                        rol = "Orman"
+                    else:
+                        rol = "Ust Koridor"
+                    if "Assassin" in c_tags and "Mage" not in c_tags: rol = "Orman"
+    except:
+        pass
+
+    return Oyuncu(ad, lp, rol, ozellik)
+
+
 def riot_api_cek(limit=300):
     if not API_AKTIF: return []
-    print("\n[SİSTEM] Riot Games API bağlantısı kuruluyor...")
+    print("\n[SİSTEM] Riot Games API bağlantısı kuruluyor (Multithreaded)...")
     headers = {"X-Riot-Token": API_KEY}
-    oyuncu_listesi = []
+
     champ_data = sampiyon_verisi_getir()
     if not champ_data: print("[HATA] Şampiyon verisi alınamadı!"); return []
+
     try:
         url = f"https://{REGION_GAME}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5"
         resp = requests.get(url, headers=headers)
         entries = sorted(resp.json()['entries'], key=lambda x: x['leaguePoints'], reverse=True)[:limit]
-    except:
+    except Exception as e:
+        print(f"[HATA] API Hatası: {e}");
         return []
-    print(f"[SİSTEM] {len(entries)} oyuncu analiz ediliyor...")
+
+    print(f"[SİSTEM] {len(entries)} oyuncu için {min(len(entries), 5)} thread başlatılıyor...")
+    oyuncu_listesi = []
     yedek_roller = ["Ust Koridor", "Orman", "Orta Koridor", "Nisanci (ADC)", "Destek"]
-    for i, p in enumerate(entries):
-        lp = p['leaguePoints']
-        puuid = p.get('puuid')
-        ad = f"Player_{i + 1}"
-        rol = random.choice(yedek_roller)
-        ozellik = "Dengeli"
-        time.sleep(1.2)
-        print(f"\rİlerleme: %{(i + 1) * 100 // len(entries)}", end="")
-        try:
-            acc_resp = requests.get(
-                f"https://{REGION_ACCOUNT}.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}",
-                headers=headers)
-            if acc_resp.status_code == 200:
-                d = acc_resp.json();
-                ad = f"{d['gameName']}#{d['tagLine']}"
-            mast_resp = requests.get(
-                f"https://{REGION_GAME}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
-                headers=headers)
-            if mast_resp.status_code == 200:
-                m = mast_resp.json()
-                if m:
-                    cid = m[0]['championId']
-                    if cid in champ_data:
-                        c_name, c_tags = champ_data[cid]
-                        ozellik = " / ".join(c_tags)
-                        if "Support" in c_tags:
-                            rol = "Destek"
-                        elif "Marksman" in c_tags:
-                            rol = "Nisanci (ADC)"
-                        elif "Mage" in c_tags:
-                            rol = "Orta Koridor"
-                        elif "Tank" in c_tags:
-                            rol = "Ust Koridor"
-                        elif "Assassin" in c_tags:
-                            rol = "Orman"
-                        else:
-                            rol = "Ust Koridor"
-                        if "Assassin" in c_tags and "Mage" not in c_tags: rol = "Orman"
-        except:
-            pass
-        oyuncu_listesi.append(Oyuncu(ad, lp, rol, ozellik))
-    print("\n[BAŞARILI] Veri çekme işlemi tamamlandı.")
+
+    # [OPTIMIZASYON]: Session Pooling & Multithreading
+    # 'requests.Session()' TCP bağlantısını açık tutar, hız kazandırır.
+    # 'ThreadPoolExecutor' aynı anda birden fazla istek atar.
+    with requests.Session() as session:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            # Görevleri dağıt
+            futures = [executor.submit(tekil_oyuncu_analiz, p, session, headers, champ_data, yedek_roller) for p in
+                       entries]
+
+            count = 0
+            for future in concurrent.futures.as_completed(futures):
+                oyuncu_listesi.append(future.result())
+                count += 1
+                # Thread-Safe Progress Bar
+                yuzde = count * 100 // len(entries)
+                bar = "█" * (yuzde // 5) + "-" * (20 - (yuzde // 5))
+                sys.stdout.write(f"\r[{bar}] %{yuzde} Veri İndirildi")
+                sys.stdout.flush()
+
+    print("\n[BAŞARILI] Veri çekme ve işleme tamamlandı.")
     return oyuncu_listesi
 
 
@@ -400,12 +445,11 @@ def riot_api_cek(limit=300):
 
 def benchmark_testi(oyuncu_havuzu):
     print("\n" + "#" * 60)
-    print(" PERFORMANS ANALİZİ (BENCHMARK MODE - NIGHTMARE) ".center(60, "#"))
+    print(" MONTE CARLO SİMÜLASYONU (GÖRSEL MOD) ".center(60, "#"))
     print("#" * 60)
 
-    # Sunumda bekletmemesi için 1000 maç (50 kişi için ideal)
-    döngü_sayisi = 1000
-    print(f"[SİSTEM] {döngü_sayisi} Maçlık 'Kabus Modu' Simülasyonu başlatılıyor...")
+    döngü_sayisi = 10000
+    print(f"[SİSTEM] {döngü_sayisi} Maçlık 'Stress Testi' başlatılıyor...")
 
     tp = 0;
     fp = 0;
@@ -414,15 +458,15 @@ def benchmark_testi(oyuncu_havuzu):
     ai = TransferYapayZekasi(oyuncu_havuzu)
     motor = StratejikMacMotoru(oyuncu_havuzu)
 
-    # [DÜZELTME]: Akıllı Zorluk Ayarı
-    # Az kişi varsa (API) zorluk 1.10 (Daha adil)
-    # Çok kişi varsa (TXT) zorluk 1.45 (AI'yı zorlamak için)
+    # AKILLI ZORLUK AYARI
     if len(oyuncu_havuzu) < 100:
-        ZORLUK_CARPANI = 1.10
-        print("[SİSTEM] Dar Havuz (API) tespit edildi. Zorluk dengeleniyor...")
+        ZORLUK_CARPANI = 1.15
+        print("[AYAR] Dar Havuz (API) -> Zorluk: 1.15 (Dengeli)")
     else:
         ZORLUK_CARPANI = 1.45
-        print("[SİSTEM] Geniş Havuz (TXT) tespit edildi. Zorluk artırılıyor...")
+        print("[AYAR] Geniş Havuz (TXT) -> Zorluk: 1.45 (Yüksek)")
+
+    print("-" * 60)
 
     for i in range(döngü_sayisi):
         if i % 10 < 4:
@@ -431,7 +475,6 @@ def benchmark_testi(oyuncu_havuzu):
             butce = random.randint(40000, 80000)
 
         strateji = random.choice(["agresif", "scaling", "dengeli"])
-
         ai_takim = ai.en_iyi_takimi_kur(butce, strateji)
         if len(ai_takim.kadro) < 5: continue
 
@@ -440,7 +483,6 @@ def benchmark_testi(oyuncu_havuzu):
         # 1. TAHMİN
         ai_toplam_puan = sum(o.puan for o in ai_takim.kadro)
         rakip_toplam_puan = sum(o.puan for o in rakip_kadro)
-
         tahmin_kazanma = ai_toplam_puan > (rakip_toplam_puan * ZORLUK_CARPANI)
 
         # 2. GERÇEK SONUÇ
@@ -472,12 +514,10 @@ def benchmark_testi(oyuncu_havuzu):
                                 guc_rakip += 400;
                                 break
 
-            # Rakip Handikapı
+            # Handikap & Kaos
             guc_rakip = guc_rakip * ZORLUK_CARPANI
-
-            # Kaos (%30 Varyans)
-            guc_ai = guc_ai * random.uniform(0.70, 1.30)
-            guc_rakip = guc_rakip * random.uniform(0.70, 1.30)
+            guc_ai = guc_ai * random.uniform(0.75, 1.25)
+            guc_rakip = guc_rakip * random.uniform(0.75, 1.25)
 
             if guc_ai >= guc_rakip:
                 skor_ai += 1
@@ -495,20 +535,27 @@ def benchmark_testi(oyuncu_havuzu):
         elif not tahmin_kazanma and gercek_sonuc_kazanma:
             fn += 1
 
-        print(f"\r[SİMÜLASYON] {i + 1}/{döngü_sayisi} maç tamamlandı...", end="")
+        # GÖRSEL ŞÖLEN (Progress Bar & Stats)
+        yuzde = (i + 1) * 100 // döngü_sayisi
+        bar_uzunluk = 30
+        dolu = int(bar_uzunluk * (i + 1) / döngü_sayisi)
+        bar = "█" * dolu + "-" * (bar_uzunluk - dolu)
+
+        sys.stdout.write(f"\r[{bar}] %{yuzde} | TP:{tp} TN:{tn} (Doğru) | FP:{fp} FN:{fn} (Yanlış)")
+        sys.stdout.flush()
 
     accuracy = (tp + tn) / ((tp + fp + tn + fn) or 1)
     precision = tp / ((tp + fp) or 1)
     recall = tp / ((tp + fn) or 1)
     f1_score = 2 * (precision * recall) / ((precision + recall) or 1)
 
-    print("\n" + "=" * 60)
+    print("\n\n" + "=" * 60)
     print(" SONUÇ RAPORU (CONFUSION MATRIX) ")
     print("=" * 60)
     print(f"TP (Doğru Tahmin):    {tp}")
     print(f"FP (Yanlış Tahmin):   {fp}")
-    print(f"TN (Doğru Negatif):   {tn}  << (AI Bütçesi Yetmediği İçin Yenilgiyi Bildi)")
-    print(f"FN (Sürpriz Galibiyet):{fn}")
+    print(f"TN (Doğru Negatif):   {tn}")
+    print(f"FN (Sürpriz Sonuç):   {fn}")
     print("-" * 60)
     print(f"ACCURACY:  %{accuracy * 100:.2f}")
     print(f"PRECISION: %{precision * 100:.2f}")

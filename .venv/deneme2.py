@@ -2,12 +2,11 @@ import time
 import os
 import random
 import sys
-import concurrent.futures  # [YENİ] Multithreading kütüphanesi
+import concurrent.futures 
 
 # [SUNUM NOTU]: Kütüphane bağımlılıklarını yönetiyoruz.
 try:
     import requests
-
     API_AKTIF = True
 except ImportError:
     API_AKTIF = False
@@ -18,53 +17,42 @@ except ImportError:
 # ==========================================
 
 # [DİKKAT]: Sunumdan hemen önce Key'i yenile!
-API_KEY = "RGAPI-9b85a10e-27cb-4ed8-9bb8-873cc7257e4b"
+API_KEY = "RGAPI-39fcf712-1437-4982-91b0-814c61aa7a3e"
 REGION_GAME = "tr1"
 REGION_ACCOUNT = "europe"
 
 # 1. DETAYLI TERMİNOLOJİ SÖZLÜĞÜ
 GENEL_SINIFLAR = {
     "Tank & Ön Saf": ["Tank", "Warden", "Main: Ornn", "Main: Shen", "Main: Malphite", "Main: Sion", "Main: K'Sante"],
-    "Ağır Dövüşçü (Juggernaut)": ["Juggernaut", "Darius", "Garen", "Sett", "Mordekaiser", "Urgot", "Illaoi",
-                                  "Volibear"],
+    "Ağır Dövüşçü (Juggernaut)": ["Juggernaut", "Darius", "Garen", "Sett", "Mordekaiser", "Urgot", "Illaoi", "Volibear"],
     "Ayrık İttiren (Splitpusher)": ["Splitpush", "Duelist", "Fiora", "Camille", "Jax", "Tryndamere", "Yorick", "Quinn"],
-    "AP Dövüşçü / Menzilli": ["Main: Gwen", "Main: Rumble", "Main: Kennen", "Main: Teemo", "Main: Vladimir",
-                              "Main: Kayle"],
+    "AP Dövüşçü / Menzilli": ["Main: Gwen", "Main: Rumble", "Main: Kennen", "Main: Teemo", "Main: Vladimir", "Main: Kayle"],
     "Erken Oyun & Baskıncı (Ganker)": ["Engage", "Diver", "Lee Sin", "Jarvan IV", "Elise", "Xin Zhao", "Vi", "Nunu"],
     "Power Farm & Taşıyıcı": ["Carry", "Graves", "Kindred", "Lillia", "Nidalee", "Karthus", "Taliyah", "Master Yi"],
     "Suikastçı Ormancı": ["Assassin", "Kha'Zix", "Rengar", "Evelynn", "Kayn", "Shaco", "Nocturne", "Ekko"],
     "Tank Ormancı": ["Tank", "Sejuani", "Zac", "Amumu", "Rammus", "Maokai"],
-    "Kontrol Büyücüsü (Control Mage)": ["Control", "Zone", "Orianna", "Syndra", "Anivia", "Azir", "Viktor", "Hwei",
-                                        "Lissandra"],
+    "Kontrol Büyücüsü (Control Mage)": ["Control", "Zone", "Orianna", "Syndra", "Anivia", "Azir", "Viktor", "Hwei", "Lissandra"],
     "Suikastçı (Assassin)": ["Assassin", "Roam", "Zed", "Leblanc", "Akali", "Qiyana", "Talon", "Fizz", "Katarina"],
-    "AD Skirmisher (Dövüşçü)": ["Critical", "Duelist", "Yasuo", "Yone", "Irelia", "Tristana", "Akshan", "Jayce",
-                                "Pantheon"],
+    "AD Skirmisher (Dövüşçü)": ["Critical", "Duelist", "Yasuo", "Yone", "Irelia", "Tristana", "Akshan", "Jayce", "Pantheon"],
     "Geç Oyun Büyücüsü (Scaling)": ["Scaling", "Late Game", "Kassadin", "Vladimir", "Veigar", "Aurelion Sol", "Ryze"],
     "Artillery (Menzilli Büyücü)": ["Artillery", "Poke", "Xerath", "Ziggs", "Vel'Koz", "Lux"],
     "Hipertaşıyıcı (Hypercarry)": ["Hypercarry", "Scaling", "Jinx", "Vayne", "Kog'Maw", "Zeri", "Aphelios", "Twitch"],
-    "Koridor Zorbası (Lane Bully)": ["Lane Bully", "Snowball", "Draven", "Lucian", "Kalista", "Caitlyn",
-                                     "Miss Fortune"],
+    "Koridor Zorbası (Lane Bully)": ["Lane Bully", "Snowball", "Draven", "Lucian", "Kalista", "Caitlyn", "Miss Fortune"],
     "Dive Lane (İçeri Giren)": ["Diver", "Mobile", "All-in", "Samira", "Kai'Sa", "Tristana", "Nilah"],
     "Fayda & Dürtme (Utility)": ["Utility", "Poke", "Ashe", "Jhin", "Ezreal", "Sivir", "Senna", "Ziggs"],
-    "Efsuncu (Enchanter)": ["Enchanter", "Heal", "Shield", "Protect", "Lulu", "Janna", "Soraka", "Yuumi", "Nami",
-                            "Karma"],
-    "Başlatıcı Tank (Engage)": ["Engage", "Hook", "Nautilus", "Leona", "Thresh", "Blitzcrank", "Alistar", "Rell",
-                                "Rakan"],
+    "Efsuncu (Enchanter)": ["Enchanter", "Heal", "Shield", "Protect", "Lulu", "Janna", "Soraka", "Yuumi", "Nami", "Karma"],
+    "Başlatıcı Tank (Engage)": ["Engage", "Hook", "Nautilus", "Leona", "Thresh", "Blitzcrank", "Alistar", "Rell", "Rakan"],
     "Koruyucu (Warden)": ["Warden", "Disengage", "Braum", "Tahm Kench", "Taric"],
     "Mage Support (Hasar)": ["Mage", "Poke", "Lux", "Xerath", "Brand", "Zyra", "Vel'Koz", "Pyke"]
 }
 
 ROL_FILTRESI = {
-    "Ust Koridor": ["Tank & Ön Saf", "Ağır Dövüşçü (Juggernaut)", "Ayrık İttiren (Splitpusher)",
-                    "AP Dövüşçü / Menzilli"],
+    "Ust Koridor": ["Tank & Ön Saf", "Ağır Dövüşçü (Juggernaut)", "Ayrık İttiren (Splitpusher)", "AP Dövüşçü / Menzilli"],
     "Orman": ["Erken Oyun & Baskıncı (Ganker)", "Power Farm & Taşıyıcı", "Suikastçı Ormancı", "Tank Ormancı"],
-    "Orta Koridor": ["Kontrol Büyücüsü (Control Mage)", "Suikastçı (Assassin)", "AD Skirmisher (Dövüşçü)",
-                     "Geç Oyun Büyücüsü (Scaling)", "Artillery (Menzilli Büyücü)"],
-    "Nisanci (ADC)": ["Hipertaşıyıcı (Hypercarry)", "Koridor Zorbası (Lane Bully)", "Dive Lane (İçeri Giren)",
-                      "Fayda & Dürtme (Utility)"],
+    "Orta Koridor": ["Kontrol Büyücüsü (Control Mage)", "Suikastçı (Assassin)", "AD Skirmisher (Dövüşçü)", "Geç Oyun Büyücüsü (Scaling)", "Artillery (Menzilli Büyücü)"],
+    "Nisanci (ADC)": ["Hipertaşıyıcı (Hypercarry)", "Koridor Zorbası (Lane Bully)", "Dive Lane (İçeri Giren)", "Fayda & Dürtme (Utility)"],
     "Destek": ["Efsuncu (Enchanter)", "Başlatıcı Tank (Engage)", "Koruyucu (Warden)", "Mage Support (Hasar)"]
 }
-
 
 # ==========================================
 # 1. TEMEL SINIFLAR (OOP)
@@ -82,11 +70,10 @@ class Oyuncu:
         else:
             self.ozellik_str = ozellik_str
         self.ozellikler = [x.strip() for x in self.ozellik_str.replace('/', ',').split(',')]
-        self.maas = puan * 10
+        self.maas = puan * 10 
 
     def __str__(self):
         return "{0} ({1}p) - {2}$".format(self.ad, self.puan, self.maas)
-
 
 class Takim:
     def __init__(self):
@@ -110,7 +97,6 @@ class Takim:
         print("-" * 80)
         print(f"Toplam Maliyet: {self.toplam_maas}$")
 
-
 # ==========================================
 # 2. MATCH ENGINE (SİMÜLASYON MOTORU)
 # ==========================================
@@ -119,7 +105,7 @@ class StratejikMacMotoru:
     def __init__(self, oyuncu_havuzu):
         self.havuz = oyuncu_havuzu
         self.counter_tablosu = {
-            "Assassin": ["Marksman", "Mage", "Support", "Sniper"],
+            "Assassin": ["Marksman", "Mage", "Support", "Sniper"], 
             "Tank": ["Assassin", "Burst", "Mage"],
             "Marksman": ["Tank", "Juggernaut", "Fighter"],
             "Mage": ["Fighter", "Skirmisher"],
@@ -137,8 +123,7 @@ class StratejikMacMotoru:
         else:
             bonus -= 300
             rapor.append("⚠️ TANK EKSİK (-300)")
-        has_ad = any(x in tum_ozellikler for x in
-                     ["Marksman", "Fighter", "Assassin", "Duelist", "Lane Bully", "Hypercarry", "Skirmisher"])
+        has_ad = any(x in tum_ozellikler for x in ["Marksman", "Fighter", "Assassin", "Duelist", "Lane Bully", "Hypercarry", "Skirmisher"])
         has_ap = any(x in tum_ozellikler for x in ["Mage", "Enchanter", "Control", "Magic", "Scaling"])
         if has_ad and has_ap:
             bonus += 200
@@ -163,9 +148,9 @@ class StratejikMacMotoru:
 
     def maci_hesapla(self, benim_takim):
         rakip_kadro = self.rakip_olustur_gercek(benim_takim.kadro)
-        print("\n" + "#" * 60)
+        print("\n" + "#"*60)
         print(" SİMÜLASYON BAŞLATILIYOR ".center(60, "#"))
-        print("#" * 60)
+        print("#"*60)
         time.sleep(1)
         benim_sinerji, benim_rapor = self.sinerji_hesapla(benim_takim.kadro)
         rakip_sinerji, rakip_rapor = self.sinerji_hesapla(rakip_kadro)
@@ -188,7 +173,7 @@ class StratejikMacMotoru:
             ekstra_guc_ben = 0
             ekstra_guc_rakip = 0
             avantaj_notu = ""
-
+            
             for ozellik in benim_oyuncu.ozellikler:
                 for anahtar, hedefler in self.counter_tablosu.items():
                     if anahtar in ozellik:
@@ -198,10 +183,10 @@ class StratejikMacMotoru:
                                 avantaj_notu = f" >> (KRİTİK AVANTAJ: {anahtar} vs {rakip_ozellik})"
                                 break
             for r_ozellik in rakip_oyuncu.ozellikler:
-                for anahtar, hedefler in self.counter_tablosu.items():
+                 for anahtar, hedefler in self.counter_tablosu.items():
                     if anahtar in r_ozellik:
                         for ozellik in benim_oyuncu.ozellikler:
-                            if any(h in ozellik for h in hedefler):
+                             if any(h in ozellik for h in hedefler):
                                 ekstra_guc_rakip = 250
                                 avantaj_notu += f" << (RAKİP AVANTAJI: {anahtar} vs {ozellik})"
                                 break
@@ -220,31 +205,34 @@ class StratejikMacMotoru:
             else:
                 print(f"   ❌ KAYBEDEN: {benim_oyuncu.ad} (Eksik: {rakip_toplam - benim_toplam})")
                 skor_rakip += 1
-        print("\n" + "=" * 60)
+        print("\n" + "="*60)
         print(f"MAÇ SONUCU: {skor_ben} - {skor_rakip}")
-        if skor_ben > skor_rakip:
-            print("🏆 TEBRİKLER! Stratejik üstünlükle kazandınız.")
-        else:
-            print("❌ MAĞLUBİYET. Takım kompozisyonu gözden geçirilmeli.")
-
+        if skor_ben > skor_rakip: print("🏆 TEBRİKLER! Stratejik üstünlükle kazandınız.")
+        else: print("❌ MAĞLUBİYET. Takım kompozisyonu gözden geçirilmeli.")
 
 # ==========================================
-# 3. KARAR ALGORİTMASI (AI - AKILLI BÜTÇE)
+# 3. KARAR ALGORİTMASI (AI - AĞIRLIKLI BÜTÇE)
 # ==========================================
 
 class TransferYapayZekasi:
     def __init__(self, oyuncu_havuzu):
         self.havuz = oyuncu_havuzu
+        # [AKILLI BÜTÇE]: Her rolün önem katsayısı (Weight)
+        self.rol_agirliklari = {
+            "Ust Koridor": 1.0,
+            "Orman": 1.0,
+            "Orta Koridor": 1.35,   # Taşıyıcı Rol (Daha fazla bütçe)
+            "Nisanci (ADC)": 1.45,  # Ana Taşıyıcı (En yüksek bütçe)
+            "Destek": 0.6           # Düşük Ekonomi
+        }
 
     def en_iyi_takimi_kur(self, butce, strateji):
         kurulan_takim = Takim()
         roller = ["Ust Koridor", "Orman", "Orta Koridor", "Nisanci (ADC)", "Destek"]
-
-        try:
-            min_maas = min([oy.maas for oy in self.havuz])
-        except:
-            min_maas = 4000
-
+        
+        try: min_maas = min([oy.maas for oy in self.havuz])
+        except: min_maas = 4000
+        
         bonus_kelimeler = []
         if strateji == "agresif":
             bonus_kelimeler = ["Assassin", "Fighter", "Marksman", "Duelist", "Snowball", "Lane Bully", "Ganker"]
@@ -254,24 +242,40 @@ class TransferYapayZekasi:
             bonus_kelimeler = ["Control", "Tank", "Engage", "Utility", "Skirmisher"]
 
         takimda_tank_var = False
-
-        # [ALGORİTMA NOTU]: Lookahead Optimization (İleriye Bakışlı Optimizasyon)
+        
         for i, rol in enumerate(roller):
             adaylar = [o for o in self.havuz if o.rol == rol]
             en_iyi_aday = None
             en_yuksek_skor = -99999
-
-            # Dinamik Rezerv: Kalan roller için minimum parayı ayırıyoruz.
-            kalan_rol_sayisi = 4 - i
-            rezerv_butce = kalan_rol_sayisi * min_maas
-            harcanabilir_limit = butce - kurulan_takim.toplam_maas - rezerv_butce
+            
+            # [YENİ ALGORİTMA]: Ağırlıklı Bütçe Hesaplama (Weighted Budget Allocation)
+            kalan_butce = butce - kurulan_takim.toplam_maas
+            
+            # Kalan rollerin toplam ağırlığını bul
+            kalan_roller = roller[i:]
+            toplam_agirlik = sum(self.rol_agirliklari[r] for r in kalan_roller)
+            
+            # Bu rolün hakkı olan para (Fair Share based on Weight)
+            rolun_payi = (kalan_butce * self.rol_agirliklari[rol]) / toplam_agirlik
+            
+            # Esneklik payı (%10 opsiyonel aşım) ama bir sonraki rolü batırmayacak şekilde
+            harcanabilir_limit = rolun_payi * 1.10
+            
+            # Mutlak Rezerv Kontrolü (Asla diğer rollerin minimum parasını yeme)
+            kalan_rol_sayisi_gelecek = 4 - i
+            mutlak_rezerv = kalan_rol_sayisi_gelecek * min_maas
+            hard_limit = kalan_butce - mutlak_rezerv
+            
+            # Final Limit: Hangisi küçükse onu al
+            final_limit = min(harcanabilir_limit, hard_limit)
 
             tank_lazim = False
             if not takimda_tank_var and rol in ["Ust Koridor", "Orman", "Destek"]:
                 tank_lazim = True
 
             for aday in adaylar:
-                if aday.maas > harcanabilir_limit: continue  # Bütçe Koruma
+                # Bütçe Kontrolü
+                if aday.maas > final_limit: continue 
 
                 skor = aday.puan
                 for ozellik in aday.ozellikler:
@@ -279,19 +283,19 @@ class TransferYapayZekasi:
                         if bonus in ozellik:
                             skor += (aday.puan * 0.1)
                             break
-
+                
                 is_tank = any(x in aday.ozellik_str for x in ["Tank", "Juggernaut", "Engage", "Warden"])
                 if tank_lazim and is_tank: skor += 500
-
+                
                 if skor > en_yuksek_skor:
                     en_yuksek_skor = skor
                     en_iyi_aday = aday
-
+            
             if en_iyi_aday:
                 kurulan_takim.oyuncu_ekle(en_iyi_aday)
                 if any(x in en_iyi_aday.ozellik_str for x in ["Tank", "Juggernaut", "Engage", "Warden"]):
                     takimda_tank_var = True
-
+                    
         return kurulan_takim
 
     def takimi_analiz_et(self, takim):
@@ -302,16 +306,12 @@ class TransferYapayZekasi:
         tank = ["Tank", "Fighter", "Engage", "Juggernaut", "Warden"]
         d_skor = sum(1 for x in tum_ozellikler for k in hasar if k in x)
         t_skor = sum(1 for x in tum_ozellikler for k in tank if k in x)
-        if t_skor < 1:
-            print("[UYARI] Ön saf (Tank/Fighter) eksik. Takım kırılgan!")
-        elif d_skor < 2:
-            print("[UYARI] Hasar (Carry) eksik. Takım savaş uzarsa kaybeder.")
-        else:
-            print("[BAŞARILI] Dengeli takım kompozisyonu oluşturuldu.")
-
+        if t_skor < 1: print("[UYARI] Ön saf (Tank/Fighter) eksik. Takım kırılgan!")
+        elif d_skor < 2: print("[UYARI] Hasar (Carry) eksik. Takım savaş uzarsa kaybeder.")
+        else: print("[BAŞARILI] Dengeli takım kompozisyonu oluşturuldu.")
 
 # ==========================================
-# 4. VERI YÖNETİMİ (MULTITHREADING & POOLING)
+# 4. VERI YÖNETİMİ (MULTITHREADING)
 # ==========================================
 
 def txt_oku():
@@ -320,8 +320,7 @@ def txt_oku():
         base_path = os.path.dirname(os.path.abspath(__file__))
         dosya_adi = os.path.join(base_path, "sıralama.txt")
     if not os.path.exists(dosya_adi):
-        print(f"[HATA] '{dosya_adi}' bulunamadı!");
-        return []
+        print(f"[HATA] '{dosya_adi}' bulunamadı!"); return []
     nesneler = []
     print(f"\n[SİSTEM] '{dosya_adi}' ayrıştırılıyor (Parsing)...")
     with open(dosya_adi, "r", encoding="utf-8") as f:
@@ -331,11 +330,9 @@ def txt_oku():
                 bilgi = satir.split(",")
                 if len(bilgi) >= 4:
                     nesneler.append(Oyuncu(bilgi[0].strip(), int(bilgi[1]), bilgi[2].strip(), bilgi[3].strip()))
-            except:
-                continue
+            except: continue
     print(f"[BAŞARILI] {len(nesneler)} oyuncu RAM'e yüklendi.")
     return nesneler
-
 
 def sampiyon_verisi_getir():
     try:
@@ -345,31 +342,19 @@ def sampiyon_verisi_getir():
         for k, v in data.items():
             champ_dict[int(v['key'])] = (v['name'], v['tags'])
         return champ_dict
-    except:
-        return {}
+    except: return {}
 
-
-# [TEKNİK DETAY]: Bu fonksiyon "Thread" içinde çalışacak.
-# Session nesnesi parametre olarak alınır (Connection Pooling).
 def tekil_oyuncu_analiz(entry, session, headers, champ_data, yedek_roller):
     lp = entry['leaguePoints']
     puuid = entry.get('puuid')
     ad = f"Player_Unknown"
     rol = random.choice(yedek_roller)
     ozellik = "Dengeli"
-
     try:
-        # 1. Hesap Bilgisi
-        acc_resp = session.get(f"https://{REGION_ACCOUNT}.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}",
-                               headers=headers)
+        acc_resp = session.get(f"https://{REGION_ACCOUNT}.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}", headers=headers)
         if acc_resp.status_code == 200:
-            d = acc_resp.json();
-            ad = f"{d['gameName']}#{d['tagLine']}"
-
-        # 2. Şampiyon Ustalığı
-        mast_resp = session.get(
-            f"https://{REGION_GAME}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
-            headers=headers)
+            d = acc_resp.json(); ad = f"{d['gameName']}#{d['tagLine']}"
+        mast_resp = session.get(f"https://{REGION_GAME}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}", headers=headers)
         if mast_resp.status_code == 200:
             m = mast_resp.json()
             if m:
@@ -377,67 +362,46 @@ def tekil_oyuncu_analiz(entry, session, headers, champ_data, yedek_roller):
                 if cid in champ_data:
                     c_name, c_tags = champ_data[cid]
                     ozellik = " / ".join(c_tags)
-                    if "Support" in c_tags:
-                        rol = "Destek"
-                    elif "Marksman" in c_tags:
-                        rol = "Nisanci (ADC)"
-                    elif "Mage" in c_tags:
-                        rol = "Orta Koridor"
-                    elif "Tank" in c_tags:
-                        rol = "Ust Koridor"
-                    elif "Assassin" in c_tags:
-                        rol = "Orman"
-                    else:
-                        rol = "Ust Koridor"
+                    if "Support" in c_tags: rol = "Destek"
+                    elif "Marksman" in c_tags: rol = "Nisanci (ADC)"
+                    elif "Mage" in c_tags: rol = "Orta Koridor"
+                    elif "Tank" in c_tags: rol = "Ust Koridor"
+                    elif "Assassin" in c_tags: rol = "Orman"
+                    else: rol = "Ust Koridor"
                     if "Assassin" in c_tags and "Mage" not in c_tags: rol = "Orman"
-    except:
-        pass
-
+    except: pass
     return Oyuncu(ad, lp, rol, ozellik)
-
 
 def riot_api_cek(limit=300):
     if not API_AKTIF: return []
     print("\n[SİSTEM] Riot Games API bağlantısı kuruluyor (Multithreaded)...")
     headers = {"X-Riot-Token": API_KEY}
-
     champ_data = sampiyon_verisi_getir()
     if not champ_data: print("[HATA] Şampiyon verisi alınamadı!"); return []
-
     try:
         url = f"https://{REGION_GAME}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5"
         resp = requests.get(url, headers=headers)
+        if resp.status_code != 200: return []
         entries = sorted(resp.json()['entries'], key=lambda x: x['leaguePoints'], reverse=True)[:limit]
-    except Exception as e:
-        print(f"[HATA] API Hatası: {e}");
-        return []
+    except Exception as e: print(f"[HATA] API: {e}"); return []
 
     print(f"[SİSTEM] {len(entries)} oyuncu için {min(len(entries), 5)} thread başlatılıyor...")
     oyuncu_listesi = []
     yedek_roller = ["Ust Koridor", "Orman", "Orta Koridor", "Nisanci (ADC)", "Destek"]
 
-    # [OPTIMIZASYON]: Session Pooling & Multithreading
-    # 'requests.Session()' TCP bağlantısını açık tutar, hız kazandırır.
-    # 'ThreadPoolExecutor' aynı anda birden fazla istek atar.
     with requests.Session() as session:
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-            # Görevleri dağıt
-            futures = [executor.submit(tekil_oyuncu_analiz, p, session, headers, champ_data, yedek_roller) for p in
-                       entries]
-
+            futures = [executor.submit(tekil_oyuncu_analiz, p, session, headers, champ_data, yedek_roller) for p in entries]
             count = 0
             for future in concurrent.futures.as_completed(futures):
                 oyuncu_listesi.append(future.result())
                 count += 1
-                # Thread-Safe Progress Bar
                 yuzde = count * 100 // len(entries)
                 bar = "█" * (yuzde // 5) + "-" * (20 - (yuzde // 5))
                 sys.stdout.write(f"\r[{bar}] %{yuzde} Veri İndirildi")
                 sys.stdout.flush()
-
     print("\n[BAŞARILI] Veri çekme ve işleme tamamlandı.")
     return oyuncu_listesi
-
 
 # ==========================================
 # 5. PERFORMANS ANALİZİ (BENCHMARK)
@@ -448,100 +412,71 @@ def benchmark_testi(oyuncu_havuzu):
     print(" MONTE CARLO SİMÜLASYONU (GÖRSEL MOD) ".center(60, "#"))
     print("#" * 60)
 
-    döngü_sayisi = 10000
+    döngü_sayisi = 1000 
     print(f"[SİSTEM] {döngü_sayisi} Maçlık 'Stress Testi' başlatılıyor...")
 
-    tp = 0;
-    fp = 0;
-    tn = 0;
-    fn = 0
+    tp = 0; fp = 0; tn = 0; fn = 0
     ai = TransferYapayZekasi(oyuncu_havuzu)
     motor = StratejikMacMotoru(oyuncu_havuzu)
 
-    # AKILLI ZORLUK AYARI
     if len(oyuncu_havuzu) < 100:
-        ZORLUK_CARPANI = 1.15
+        ZORLUK_CARPANI = 1.15 
         print("[AYAR] Dar Havuz (API) -> Zorluk: 1.15 (Dengeli)")
     else:
         ZORLUK_CARPANI = 1.45
         print("[AYAR] Geniş Havuz (TXT) -> Zorluk: 1.45 (Yüksek)")
-
     print("-" * 60)
 
     for i in range(döngü_sayisi):
-        if i % 10 < 4:
-            butce = random.randint(15000, 30000)
-        else:
-            butce = random.randint(40000, 80000)
+        if i % 10 < 4: butce = random.randint(15000, 30000)
+        else: butce = random.randint(40000, 80000)
 
         strateji = random.choice(["agresif", "scaling", "dengeli"])
         ai_takim = ai.en_iyi_takimi_kur(butce, strateji)
         if len(ai_takim.kadro) < 5: continue
 
         rakip_kadro = motor.rakip_olustur_gercek(ai_takim.kadro)
-
-        # 1. TAHMİN
         ai_toplam_puan = sum(o.puan for o in ai_takim.kadro)
         rakip_toplam_puan = sum(o.puan for o in rakip_kadro)
         tahmin_kazanma = ai_toplam_puan > (rakip_toplam_puan * ZORLUK_CARPANI)
 
-        # 2. GERÇEK SONUÇ
         ai_sinerji, _ = motor.sinerji_hesapla(ai_takim.kadro)
-        rakip_sinerji, _ = motor.sinerji_hesapla(rakip_kadro)
-
+        rakip_sinerji, _ = motor.sinerji_hesapla(rakip_kadro) 
         skor_ai = 0
         skor_rakip = 0
 
         for k in range(5):
             guc_ai = ai_takim.kadro[k].puan + int(ai_sinerji / 5)
             guc_rakip = rakip_kadro[k].puan + int(rakip_sinerji / 5)
-
-            # Counter (Sen Rakibi?)
             for ozellik in ai_takim.kadro[k].ozellikler:
                 for anahtar, hedefler in motor.counter_tablosu.items():
                     if anahtar in ozellik:
                         for r_ozellik in rakip_kadro[k].ozellikler:
                             if any(h in r_ozellik for h in hedefler):
-                                guc_ai += 400;
-                                break
-
-            # Counter (Rakip Seni?)
+                                guc_ai += 400; break
             for r_ozellik in rakip_kadro[k].ozellikler:
-                for anahtar, hedefler in motor.counter_tablosu.items():
+                 for anahtar, hedefler in motor.counter_tablosu.items():
                     if anahtar in r_ozellik:
                         for ozellik in ai_takim.kadro[k].ozellikler:
-                            if any(h in ozellik for h in hedefler):
-                                guc_rakip += 400;
-                                break
-
-            # Handikap & Kaos
+                             if any(h in ozellik for h in hedefler):
+                                guc_rakip += 400; break
             guc_rakip = guc_rakip * ZORLUK_CARPANI
             guc_ai = guc_ai * random.uniform(0.75, 1.25)
             guc_rakip = guc_rakip * random.uniform(0.75, 1.25)
-
-            if guc_ai >= guc_rakip:
-                skor_ai += 1
-            else:
-                skor_rakip += 1
+            if guc_ai >= guc_rakip: skor_ai += 1
+            else: skor_rakip += 1
 
         gercek_sonuc_kazanma = skor_ai > skor_rakip
+        if tahmin_kazanma and gercek_sonuc_kazanma: tp += 1
+        elif tahmin_kazanma and not gercek_sonuc_kazanma: fp += 1
+        elif not tahmin_kazanma and not gercek_sonuc_kazanma: tn += 1
+        elif not tahmin_kazanma and gercek_sonuc_kazanma: fn += 1
 
-        if tahmin_kazanma and gercek_sonuc_kazanma:
-            tp += 1
-        elif tahmin_kazanma and not gercek_sonuc_kazanma:
-            fp += 1
-        elif not tahmin_kazanma and not gercek_sonuc_kazanma:
-            tn += 1
-        elif not tahmin_kazanma and gercek_sonuc_kazanma:
-            fn += 1
-
-        # GÖRSEL ŞÖLEN (Progress Bar & Stats)
         yuzde = (i + 1) * 100 // döngü_sayisi
         bar_uzunluk = 30
         dolu = int(bar_uzunluk * (i + 1) / döngü_sayisi)
         bar = "█" * dolu + "-" * (bar_uzunluk - dolu)
-
-        sys.stdout.write(f"\r[{bar}] %{yuzde} | TP:{tp} TN:{tn} (Doğru) | FP:{fp} FN:{fn} (Yanlış)")
+        sys.stdout.write(f"\r[{bar}] %{yuzde} | TP:{tp} TN:{tn} | FP:{fp} FN:{fn}")
         sys.stdout.flush()
 
     accuracy = (tp + tn) / ((tp + fp + tn + fn) or 1)
@@ -564,7 +499,6 @@ def benchmark_testi(oyuncu_havuzu):
     print("=" * 60)
     input("Ana menüye dönmek için Enter'a bas...")
 
-
 # ==========================================
 # 6. UI & MAIN
 # ==========================================
@@ -575,46 +509,34 @@ def rol_secimi():
         print("[1] Ust [2] Orman [3] Orta [4] ADC [5] Destek [6] Geri")
         secim = input("Secim: ").strip()
         rol_map = {"1": "Ust Koridor", "2": "Orman", "3": "Orta Koridor", "4": "Nisanci (ADC)", "5": "Destek"}
-        if secim == "6":
-            return
-        elif secim in rol_map:
-            ozellik_secimi(rol_map[secim])
-
+        if secim == "6": return
+        elif secim in rol_map: ozellik_secimi(rol_map[secim])
 
 def ozellik_secimi(rol):
     ilgili = [o for o in OYUNCU_HAVUZU if o.rol == rol]
     if not ilgili: print("Oyuncu yok."); return
     print(f"\n--- {rol} ---")
-    if rol in ROL_FILTRESI:
-        kategoriler = ROL_FILTRESI[rol]
-    else:
-        kategoriler = list(GENEL_SINIFLAR.keys())
+    if rol in ROL_FILTRESI: kategoriler = ROL_FILTRESI[rol]
+    else: kategoriler = list(GENEL_SINIFLAR.keys())
     for i, kat in enumerate(kategoriler, 1): print(f"[{i}] {kat}")
-    print(f"[{len(kategoriler) + 1}] Hepsi\n[{len(kategoriler) + 2}] Geri")
+    print(f"[{len(kategoriler)+1}] Hepsi\n[{len(kategoriler)+2}] Geri")
     try:
         s = int(input("Secim: "))
-        if s == len(kategoriler) + 2:
-            return
-        elif s == len(kategoriler) + 1:
-            sonuclari_listele(rol, "Hepsi")
-        elif 1 <= s <= len(kategoriler):
-            sonuclari_listele(rol, kategoriler[s - 1])
-    except:
-        pass
-
+        if s == len(kategoriler)+2: return
+        elif s == len(kategoriler)+1: sonuclari_listele(rol, "Hepsi")
+        elif 1 <= s <= len(kategoriler): sonuclari_listele(rol, kategoriler[s-1])
+    except: pass
 
 def sonuclari_listele(rol, kategori_adi):
     print(f"\n[FİLTRE] {rol} | {kategori_adi}")
     eslesen = []
     for oy in OYUNCU_HAVUZU:
         if oy.rol != rol: continue
-        if kategori_adi == "Hepsi":
-            eslesen.append(oy)
+        if kategori_adi == "Hepsi": eslesen.append(oy)
         else:
             aranan = GENEL_SINIFLAR.get(kategori_adi, [])
             if any(k in oy.ozellik_str for k in aranan): eslesen.append(oy)
-    if not eslesen:
-        print("Yok.")
+    if not eslesen: print("Yok.")
     else:
         eslesen.sort(key=lambda x: x.puan, reverse=True)
         print(f"\n[ BULUNAN: {len(eslesen)} ]")
@@ -625,17 +547,14 @@ def sonuclari_listele(rol, kategori_adi):
         print("-" * 80)
     input("Devam...")
 
-
 def takim_kurma_modulu():
     print("\n--- TAKIM KURMA ---")
     ai = TransferYapayZekasi(OYUNCU_HAVUZU)
     while True:
         giris = input("Bütçe (Örn: 50000): ").strip()
         if giris.isdigit():
-            butce = int(giris);
-            break
-        else:
-            print("Sayı giriniz!")
+            butce = int(giris); break
+        else: print("Sayı giriniz!")
     print("Strateji: [1] Agresif [2] Scaling [3] Dengeli")
     s = input("Secim: ")
     st = "agresif" if s == "1" else ("scaling" if s == "2" else "dengeli")
@@ -645,9 +564,7 @@ def takim_kurma_modulu():
         ai.takimi_analiz_et(yeni)
         if input("\nSimülasyon? (e/h): ").lower() == 'e':
             StratejikMacMotoru(OYUNCU_HAVUZU).maci_hesapla(yeni)
-    else:
-        print("Bütçe yetersiz.")
-
+    else: print("Bütçe yetersiz.")
 
 def main():
     global OYUNCU_HAVUZU
@@ -657,28 +574,20 @@ def main():
     print("[1] Yerel Veri (TXT)\n[2] Canlı Veri (API)")
     secim = input("Secim: ")
     if secim == "2":
-        try:
-            limit = int(input("Kişi Sayısı (örn: 50): "))
-        except:
-            limit = 50
+        try: limit = int(input("Kişi Sayısı (örn: 50): "))
+        except: limit = 50
         OYUNCU_HAVUZU = riot_api_cek(limit)
-    else:
-        OYUNCU_HAVUZU = txt_oku()
+    else: OYUNCU_HAVUZU = txt_oku()
     if not OYUNCU_HAVUZU: return
     while True:
         print("\n--- ANA MENU ---")
         print(f"[Havuz: {len(OYUNCU_HAVUZU)}]")
         print("[1] Yapay Zeka Takım\n[2] Scouting\n[3] Performans Testi\n[4] Çıkış")
         s = input("Secim: ")
-        if s == "1":
-            takim_kurma_modulu()
-        elif s == "2":
-            rol_secimi()
-        elif s == "3":
-            benchmark_testi(OYUNCU_HAVUZU)
-        elif s == "4":
-            break
-
+        if s == "1": takim_kurma_modulu()
+        elif s == "2": rol_secimi()
+        elif s == "3": benchmark_testi(OYUNCU_HAVUZU)
+        elif s == "4": break
 
 if __name__ == "__main__":
     main()
